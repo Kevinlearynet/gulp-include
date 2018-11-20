@@ -271,24 +271,14 @@ module.exports = function( params ) {
 		}
 
 		// Check content for syntax errors
-		let errors;
-
-		try {
-			errors = esprima.parse( content, { tolerant: true } ).errors;
-		} catch ( err ) {
-			new PluginError( 'gulp-include', err, {
-				fileName: filePath,
-				showStack: true
-			} );
-		}
-
+		var errors = esprima.parse( content, { tolerant: false } ).errors;
+		console.log( errors );
 		if ( errors && errors.length > 0 ) {
-			new PluginError( 'gulp-include', errors.join( '--' ), {
+			new PluginError( 'gulp-include', errors.join( "\n" ), {
 				fileName: filePath,
 				showStack: true
 			} );
 		}
-
 
 		return { content: content, map: map ? map.toString() : null };
 	}
