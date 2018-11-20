@@ -274,7 +274,7 @@ module.exports = function( params ) {
 		let errors;
 
 		try {
-			errors = esprima.parse( content.toString(), { tolerant: true } ).errors;
+			errors = esprima.parse( content, { tolerant: true } ).errors;
 		} catch ( err ) {
 			new PluginError( 'gulp-include', err, {
 				fileName: filePath,
