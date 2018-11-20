@@ -273,12 +273,6 @@ module.exports = function( params ) {
 		// Check content for syntax errors
 		var errors = esprima.parse( content, { tolerant: false } ).errors;
 		console.log( errors );
-		if ( errors && errors.length > 0 ) {
-			new PluginError( 'gulp-include', errors.join( " -- " ), {
-				fileName: filePath,
-				showStack: true
-			} );
-		}
 
 		return { content: content, map: map ? map.toString() : null };
 	}
