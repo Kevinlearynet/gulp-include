@@ -278,7 +278,7 @@ module.exports = function( params ) {
 		}
 
 		if ( errors && errors.length > 0 ) {
-			throw new PluginError( 'gulp-include', '\n' + errors.join( '\n' ), {
+			throw new PluginError( 'gulp-include', errors.join( '\n' ), {
 				fileName: filePath,
 				showStack: false
 			} );
