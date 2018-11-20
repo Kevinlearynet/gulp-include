@@ -4,6 +4,8 @@ const es = require( 'event-stream' );
 const glob = require( 'glob' );
 const applySourceMap = require( 'vinyl-sourcemaps-apply' );
 const stripBom = require( 'strip-bom' );
+
+const through = require( 'through2' );
 const esprima = require( 'esprima' );
 const PluginError = require( 'plugin-error' );
 
@@ -274,13 +276,16 @@ module.exports = function( params ) {
 		try {
 			errors = esprima.parse( content.toString(), { tolerant: true } ).errors;
 		} catch ( err ) {
-			throw new PluginError( 'gulp-include', err, { fileName: filePath } );
+			new PluginError( 'gulp-include', err, {
+				fileName: filePath,
+				showStack: true
+			} );
 		}
 
 		if ( errors && errors.length > 0 ) {
-			throw new PluginError( 'gulp-include', errors.join( '\n' ), {
+			new PluginError( 'gulp-include', errors.join( '--' ), {
 				fileName: filePath,
-				showStack: false
+				showStack: true
 			} );
 		}
 
